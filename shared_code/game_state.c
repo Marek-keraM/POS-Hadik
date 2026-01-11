@@ -3,28 +3,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* --------- malé helpery --------- */
+//  POMOCNE FUNKCIE
 
 static int idx_of(const GameState *gs, int x, int y) {
     return y * gs->width + x;
 }
 
-/* Kapacita segmentov hada bez MAX_SEGMENTS */
+//  Kapacita pola seg
 static int snake_seg_capacity(const Snake *s) {
     return (int)(sizeof(s->seg) / sizeof(s->seg[0]));
 }
 
-/* Kapacita ovocia bez MAX_FRUITS */
+//  Kapacita ovocia
 static int fruits_capacity(const GameState *gs) {
     return (int)(sizeof(gs->fruits) / sizeof(gs->fruits[0]));
 }
 
+// Overenie ci bunka je prekazka
 int gs_is_obstacle(const GameState *gs, int x, int y) {
-    if (!gs->obstacles) return 0; /* svet bez prekážok */
+    if (!gs->obstacles) return 0; // len svet bez prekazok
     if (x < 0 || y < 0 || x >= gs->width || y >= gs->height) return 1;
     return gs->obstacles[idx_of(gs, x, y)] ? 1 : 0;
 }
 
+// Spocitanie hadov/ hracov v hre
 static int count_active_snakes(const GameState *gs) {
     int c = 0;
     for (int i = 0; i < MAX_PLAYERS; i++) {
@@ -33,6 +35,7 @@ static int count_active_snakes(const GameState *gs) {
     return c;
 }
 
+// Ci na bunke je ovocie
 static int fruit_exists(const GameState *gs, int x, int y) {
     for (int i = 0; i < gs->fruit_count; i++) {
         if (gs->fruits[i].x == x && gs->fruits[i].y == y) return 1;
@@ -40,6 +43,7 @@ static int fruit_exists(const GameState *gs, int x, int y) {
     return 0;
 }
 
+// Ci uz na bunke je had
 static int cell_occupied_by_snake(const GameState *gs, int x, int y) {
     for (int s = 0; s < MAX_PLAYERS; s++) {
         if (!gs->snakes[s].active) continue;
@@ -50,15 +54,12 @@ static int cell_occupied_by_snake(const GameState *gs, int x, int y) {
     return 0;
 }
 
-/* --------- BFS (pre dosiahnuteľnosť pri prekážkach) --------- */
-
+// Dosiahnutelnost ovocia pre hadika
 static void bfs_fill(const GameState *gs, int sx, int sy, unsigned char *out) {
     int w = gs->width;
     int h = gs->height;
     int n = w * h;
-
-    memset(out, 0, (size_t)n);
-
+    memset(out, 0, (size_t)n);  // vynuluje vsetko nedosiahnutelne
     if (sx < 0 || sy < 0 || sx >= w || sy >= h) return;
     if (gs_is_obstacle(gs, sx, sy)) return;
 
@@ -82,7 +83,6 @@ static void bfs_fill(const GameState *gs, int sx, int sy, unsigned char *out) {
             int nx = x + dx[k];
             int ny = y + dy[k];
 
-            /* pri prekážkach NEROBÍME wrap */
             if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
             if (gs_is_obstacle(gs, nx, ny)) continue;
 
@@ -100,20 +100,19 @@ static void bfs_fill(const GameState *gs, int sx, int sy, unsigned char *out) {
     free(qy);
 }
 
+// spocitanie kolko je policok je este
 static int popcount_u8(const unsigned char *arr, int n) {
     int c = 0;
     for (int i = 0; i < n; i++) c += (arr[i] ? 1 : 0);
     return c;
 }
 
-/* prienik dosiahnuteľnosti všetkých aktívnych hadov */
+//  Funkcia na kontrolu ci je dosiahnutelna odmena/ovocie dosiahnutelna pre kazdeho hraca 0/1
 static void reachable_intersection_all_snakes(const GameState *gs, unsigned char *out) {
     int n = gs->width * gs->height;
     memset(out, 1, (size_t)n);
-
     unsigned char *tmp = (unsigned char *)malloc((size_t)n);
     if (!tmp) return;
-
     int first = 1;
 
     for (int s = 0; s < MAX_PLAYERS; s++) {
@@ -131,10 +130,7 @@ static void reachable_intersection_all_snakes(const GameState *gs, unsigned char
             for (int i = 0; i < n; i++) out[i] = (unsigned char)(out[i] && tmp[i]);
         }
     }
-
     free(tmp);
-
-    /* ak nebol žiadny had, povolíme všetko okrem prekážok */
     if (first) {
         memset(out, 1, (size_t)n);
     }
@@ -146,28 +142,26 @@ static void reachable_intersection_all_snakes(const GameState *gs, unsigned char
     }
 }
 
-/* --------- OVOCIE: FIX (nepresúvať) --------- */
-
+//  Kontrola ovocia ci je zjedene
 static int eat_fruit_if_present(GameState *gs, int hx, int hy) {
     for (int i = 0; i < gs->fruit_count; i++) {
-        if (gs->fruits[i].x == hx && gs->fruits[i].y == hy) {
+        if (gs->fruits[i].x == hx && gs->fruits[i].y == hy) {   // ak sa hlava hada nachazda na ovoci rychlo odstrani z pola
             gs->fruits[i] = gs->fruits[gs->fruit_count - 1];
             gs->fruit_count--;
-            return 1;
+            return 1;   // uz len vypise ze ovocie bolo zjedene
         }
     }
-    return 0;
+    return 0;   // nebollo ziadne zjedene
 }
 
-/* DOPLŇ ovocie na cieľový počet (počet aktívnych hadov).
-   Nič nepresúva. Ak je ovocia viac než target, oreže. */
+//  Funckia na doplnanie ovocia podla poctu hadov/hracov
 static void ensure_fruits(GameState *gs) {
     int target = count_active_snakes(gs);
     int cap = fruits_capacity(gs);
 
     if (target > cap) target = cap;
 
-    if (gs->fruit_count > target) {
+    if (gs->fruit_count > target) { // ak sa nahoodu had odpoji sa znizi kapacita
         gs->fruit_count = target;
     }
 
@@ -177,11 +171,10 @@ static void ensure_fruits(GameState *gs) {
     unsigned char *allowed = (unsigned char *)malloc((size_t)n);
     if (!allowed) return;
 
-    if (gs->obstacles) {
-        /* prekážky -> prienik dosiahnuteľnosti */
-        reachable_intersection_all_snakes(gs, allowed);
+    if (gs->obstacles) {    // cast kontrolovania ci mozme ovocie zjest
+        reachable_intersection_all_snakes(gs, allowed); // ci je dosiahnutelna
 
-        /* fallback ak prienik vyšiel prázdny */
+        // ak su velky hadi tak su oddeleny tak im dovolime aby sa spawnovalo ovocie zvlast
         if (popcount_u8(allowed, n) == 0) {
             for (int y = 0; y < gs->height; y++) {
                 for (int x = 0; x < gs->width; x++) {
@@ -190,21 +183,21 @@ static void ensure_fruits(GameState *gs) {
             }
         }
     } else {
-        /* bez prekážok: povol všetko */
-        memset(allowed, 1, (size_t)n);
+        memset(allowed, 1, (size_t)n);  // bez prekazok je povolene vsade
     }
 
-    while (gs->fruit_count < target) {
+    while (gs->fruit_count < target) {  // ak sa stane ze neni umiestni sa dalsi kus vzdy nahodna bunka
         int placed = 0;
 
         for (int tries = 0; tries < 3000; tries++) {
             int x = rand() % gs->width;
             int y = rand() % gs->height;
 
-            if (!allowed[idx_of(gs, x, y)]) continue;
-            if (fruit_exists(gs, x, y)) continue;
-            if (cell_occupied_by_snake(gs, x, y)) continue;
+            if (!allowed[idx_of(gs, x, y)]) continue;   // dosiahnutelna
+            if (fruit_exists(gs, x, y)) continue;       // nesmie tam byt ovocko
+            if (cell_occupied_by_snake(gs, x, y)) continue; // nesmie tam byt had
 
+            // tu sa nastavy ak vsetko preslo
             gs->fruits[gs->fruit_count].x = x;
             gs->fruits[gs->fruit_count].y = y;
             gs->fruit_count++;
@@ -212,21 +205,19 @@ static void ensure_fruits(GameState *gs) {
             break;
         }
 
-        if (!placed) break;
+        if (!placed) break; // ak sa stane ze neni miesto skoncime
     }
 
     free(allowed);
 }
 
-/* --------- prekážky: generovanie + connected check --------- */
-
+// Funkcia ci su bunky dosiahnutelne
 static int map_is_connected_free(const GameState *gs) {
     int w = gs->width;
     int h = gs->height;
     int n = w * h;
-
     int sx = -1, sy = -1;
-    int free_count = 0;
+    int free_count = 0; // finalny pocet volnych buniek
 
     for (int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
@@ -238,7 +229,6 @@ static int map_is_connected_free(const GameState *gs) {
     }
 
     if (free_count == 0) return 0;
-
     unsigned char *vis = (unsigned char *)malloc((size_t)n);
     if (!vis) return 0;
 
@@ -246,14 +236,13 @@ static int map_is_connected_free(const GameState *gs) {
 
     int reached = 0;
     for (int i = 0; i < n; i++) reached += (vis[i] ? 1 : 0);
-
     free(vis);
     return reached == free_count;
 }
 
+//  Funkcia nahodneho generovania prekazky
 int gs_generate_obstacles_random(GameState *gs, int obstacle_count) {
     if (obstacle_count < 0) obstacle_count = 0;
-
     int n = gs->width * gs->height;
 
     if (!gs->obstacles) {
@@ -267,11 +256,11 @@ int gs_generate_obstacles_random(GameState *gs, int obstacle_count) {
         int placed = 0;
         int tries = 0;
 
+        // nahodne vybera miesto podla x y na prekazdku
         while (placed < obstacle_count && tries < obstacle_count * 300) {
             tries++;
             int x = rand() % gs->width;
             int y = rand() % gs->height;
-
             int id = idx_of(gs, x, y);
             if (gs->obstacles[id]) continue;
 
@@ -285,8 +274,7 @@ int gs_generate_obstacles_random(GameState *gs, int obstacle_count) {
     return -1;
 }
 
-/* --------- API --------- */
-
+//  Funkcia na celkove inicializovanie herneho stavu hry do startu
 void gs_init(GameState *gs, int width, int height, int multiplayer) {
     memset(gs, 0, sizeof(*gs));
 
@@ -315,6 +303,7 @@ void gs_init(GameState *gs, int width, int height, int multiplayer) {
     }
 }
 
+// uvolni alokovane csti v hre
 void gs_destroy(GameState *gs) {
     if (gs->obstacles) {
         free(gs->obstacles);
@@ -322,6 +311,7 @@ void gs_destroy(GameState *gs) {
     }
 }
 
+// nastavy herny rezim a resetuje
 void gs_set_mode(GameState *gs, GameMode mode, int time_limit_sec) {
     gs->mode = mode;
     gs->time_limit_sec = (mode == MODE_TIMED) ? time_limit_sec : 0;
@@ -330,6 +320,7 @@ void gs_set_mode(GameState *gs, GameMode mode, int time_limit_sec) {
     gs->game_over = 0;
 }
 
+// funkcia na pridavanie noveho hada
 int gs_add_snake(GameState *gs) {
     for (int i = 0; i < MAX_PLAYERS; i++) {
         if (gs->snakes[i].active) continue;
@@ -346,7 +337,6 @@ int gs_add_snake(GameState *gs) {
 
         s->len = 3;
 
-        /* Spawn tak, aby to aj v prekážkach nevychádzalo mimo mapy */
         int placed = 0;
         for (int tries = 0; tries < 4000; tries++) {
             int x = rand() % gs->width;
@@ -355,41 +345,41 @@ int gs_add_snake(GameState *gs) {
             if (gs_is_obstacle(gs, x, y)) continue;
             if (cell_occupied_by_snake(gs, x, y)) continue;
 
-            /* nastav telo doľava, ale bezpečne */
+            // ponastavuje telo smerom v lavo
             int x1 = x - 1;
             int x2 = x - 2;
 
             if (!gs->obstacles) {
-                /* wrap v empty svete */
                 if (x1 < 0) x1 += gs->width;
                 if (x2 < 0) x2 += gs->width;
             } else {
-                /* bez wrap: musí sa zmestiť */
                 if (x2 < 0) continue;
                 if (gs_is_obstacle(gs, x1, y) || gs_is_obstacle(gs, x2, y)) continue;
             }
 
+            // nastavenie pociatocnych segmentov hada hlava a telo
             s->seg[0].x = x;  s->seg[0].y = y;
             s->seg[1].x = x1; s->seg[1].y = y;
             s->seg[2].x = x2; s->seg[2].y = y;
 
-            placed = 1;
+            placed = 1; // hodnota ze sa spawnul had
             break;
         }
 
         if (!placed) {
             s->active = 0;
             s->len = 0;
-            return -1;
+            return -1;  // ak sa neda nikde spawnut da chybu
         }
 
-        ensure_fruits(gs);
+        ensure_fruits(gs);  // doplnenie ovocka po hadovy
         return i;
     }
 
     return -1;
 }
 
+// odstranenie hada podla jeho id
 void gs_remove_snake(GameState *gs, int snake_id) {
     if (snake_id < 0 || snake_id >= MAX_PLAYERS) return;
     gs->snakes[snake_id].active = 0;
@@ -397,8 +387,7 @@ void gs_remove_snake(GameState *gs, int snake_id) {
     ensure_fruits(gs);
 }
 
-/* --------- tick: pohyb + kolízie + jedenie --------- */
-
+// funkcia na vypocitanie pozicie hlavy podla direction
 static void compute_next_head(const GameState *gs, const Snake *s, int *nx, int *ny) {
     int x = s->seg[0].x;
     int y = s->seg[0].y;
@@ -409,7 +398,6 @@ static void compute_next_head(const GameState *gs, const Snake *s, int *nx, int 
     else if (s->dir == DIR_RIGHT) x++;
 
     if (!gs->obstacles) {
-        /* wrap-around iba keď nie sú prekážky */
         if (x < 0) x = gs->width - 1;
         if (x >= gs->width) x = 0;
         if (y < 0) y = gs->height - 1;
@@ -420,6 +408,7 @@ static void compute_next_head(const GameState *gs, const Snake *s, int *nx, int 
     *ny = y;
 }
 
+// zistuje ci x a y oredstavuje koliziu so stenou
 static int will_hit_wall_or_obstacle(const GameState *gs, int x, int y) {
     if (gs->obstacles) {
         if (x < 0 || y < 0 || x >= gs->width || y >= gs->height) return 1;
@@ -427,6 +416,7 @@ static int will_hit_wall_or_obstacle(const GameState *gs, int x, int y) {
     return gs_is_obstacle(gs, x, y);
 }
 
+// zistujeme ci pozicia koliduje s nejakym telom hada
 static int hits_any_snake(const GameState *gs, int x, int y) {
     for (int s = 0; s < MAX_PLAYERS; s++) {
         if (!gs->snakes[s].active) continue;
@@ -437,21 +427,21 @@ static int hits_any_snake(const GameState *gs, int x, int y) {
     return 0;
 }
 
+// Tu sa odohrava jeden tick hry teda krok simulacie
 void gs_tick(GameState *gs, long long now_ms) {
     if (gs->game_over) return;
-
     if (gs->start_ms == 0) gs->start_ms = now_ms;
 
-    /* timed mode */
+    // koniec po uplynuti casu
     if (gs->mode == MODE_TIMED && gs->time_limit_sec > 0) {
-        long long elapsed = now_ms - gs->start_ms;
+        long long elapsed = now_ms - gs->start_ms;  // cas hry od startu
         if (elapsed >= (long long)gs->time_limit_sec * 1000LL) {
             gs->game_over = 1;
             return;
         }
     }
 
-    /* resume po 3s */
+    // vratenie do hry po 3 sekundach
     for (int i = 0; i < MAX_PLAYERS; i++) {
         Snake *s = &gs->snakes[i];
         if (!s->active) continue;
@@ -465,9 +455,9 @@ void gs_tick(GameState *gs, long long now_ms) {
     int nexty[MAX_PLAYERS];
     int will_move[MAX_PLAYERS];
     int dead[MAX_PLAYERS];
+    memset(dead, 0, sizeof(dead)); // na zaciatku nik neumrel
 
-    memset(dead, 0, sizeof(dead));
-
+    // smery hlav pre hady
     for (int i = 0; i < MAX_PLAYERS; i++) {
         Snake *s = &gs->snakes[i];
         if (!s->active || s->paused) {
@@ -479,10 +469,9 @@ void gs_tick(GameState *gs, long long now_ms) {
         compute_next_head(gs, s, &nextx[i], &nexty[i]);
     }
 
-    /* kolízie + head-head */
+    // kolize hlavy hadov
     for (int i = 0; i < MAX_PLAYERS; i++) {
         if (!will_move[i]) continue;
-
         int x = nextx[i];
         int y = nexty[i];
 
@@ -505,7 +494,7 @@ void gs_tick(GameState *gs, long long now_ms) {
         }
     }
 
-    /* aplikuj pohyb */
+    // aplikuje sa pohyb a smrt pre hada/hraca
     for (int i = 0; i < MAX_PLAYERS; i++) {
         Snake *s = &gs->snakes[i];
         if (!s->active) continue;
@@ -524,19 +513,17 @@ void gs_tick(GameState *gs, long long now_ms) {
 
         int hx = nextx[i];
         int hy = nexty[i];
-
         int ate = eat_fruit_if_present(gs, hx, hy);
         if (ate) s->score += 1;
-
         int cap = snake_seg_capacity(s);
 
-        /* rast bez "grow": ak zjedol, predĺž len vtedy, keď je miesto */
+        //  rast bez ak zjedol, predĺž len vtedy, keď je miesto
         int new_len = s->len;
         if (ate && s->len < cap) {
             new_len = s->len + 1;
         }
 
-        /* posuň segmenty (ak new_len==len, chvost sa "stratí"; ak new_len==len+1, rastie) */
+        // posunie segmenty od konca k hlave
         for (int j = new_len - 1; j > 0; j--) {
             s->seg[j] = s->seg[j - 1];
         }
@@ -545,7 +532,7 @@ void gs_tick(GameState *gs, long long now_ms) {
         s->len = new_len;
     }
 
-    /* standard mode: 10s po zmiznutí posledného hada */
+    // koniec hry po zmyznuti posledneho hada 10skund
     int act = count_active_snakes(gs);
     if (act == 0) {
         if (gs->empty_since_ms == 0) gs->empty_since_ms = now_ms;
@@ -557,6 +544,6 @@ void gs_tick(GameState *gs, long long now_ms) {
         gs->empty_since_ms = 0;
     }
 
-    /* kľúčové: ovocie sa iba doplní/oreže, nikdy sa nepresúva */
+    // tu sa zosuladi na konci tiku ovocie s poctom hadov
     ensure_fruits(gs);
 }
