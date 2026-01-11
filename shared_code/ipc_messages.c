@@ -1,14 +1,54 @@
 #include "ipc_messages.h"
+
 #include <stdio.h>
+#include <errno.h>
+#include <string.h>
 
-//   fd je vzdy socket z ktoreho citame
-//   msg sprava ktoru posielame
+/*
+ * Pri SOCK_STREAM nie je zaručené, že read()/write() prenesú celý blok naraz.
+ * Preto robíme "full" verzie, ktoré čítajú/zapisujú presne N bajtov.
+ */
+static int write_full(int fd, const void *buf, size_t n) {
+    const char *p = (const char *)buf;
+    size_t off = 0;
 
+    while (off < n) {
+        ssize_t w = write(fd, p + off, n - off);
+        if (w < 0) {
+            if (errno == EINTR) continue; // prerusene signalom, skus znovu
+            return -1;
+        }
+        if (w == 0) {
+            // pri write() by sa to stat nemalo casto, ale berieme to ako chybu
+            return -1;
+        }
+        off += (size_t)w;
+    }
+    return 0;
+}
+
+static int read_full(int fd, void *buf, size_t n) {
+    char *p = (char *)buf;
+    size_t off = 0;
+
+    while (off < n) {
+        ssize_t r = read(fd, p + off, n - off);
+        if (r < 0) {
+            if (errno == EINTR) continue; // prerusene signalom, skus znovu
+            return -1;
+        }
+        if (r == 0) {
+            // EOF = klient/server zatvoril spojenie
+            return -1;
+        }
+        off += (size_t)r;
+    }
+    return 0;
+}
 
 //  Fukcia pre posileanie ipc spravy
 int send_ipc_message(int fd, const IpcMessage *msg) {
-    ssize_t sent = write(fd, msg, sizeof(IpcMessage));
-    if (sent != sizeof(IpcMessage)) {   // ak nastane chyba vo write
+    if (write_full(fd, msg, sizeof(IpcMessage)) != 0) {
         perror("send_ipc_message");
         return -1;
     }
@@ -17,8 +57,7 @@ int send_ipc_message(int fd, const IpcMessage *msg) {
 
 //  Funkcia prijmne jednu ipc spravu ked uz je pripojena
 int recv_ipc_message(int fd, IpcMessage *msg) {
-    ssize_t rec = read(fd, msg, sizeof(IpcMessage));
-    if (rec != sizeof(IpcMessage)) {    // ak nastane chyba v read
+    if (read_full(fd, msg, sizeof(IpcMessage)) != 0) {
         perror("recv_ipc_message");
         return -1;
     }
@@ -27,8 +66,7 @@ int recv_ipc_message(int fd, IpcMessage *msg) {
 
 //  Funkcia posle celkove parametre pri vytvoreni hry - server prijma od klienta
 int send_new_game_params(int fd, const NewGameParams *params) {
-    ssize_t sent = write(fd, params, sizeof(NewGameParams));
-    if (sent != sizeof(NewGameParams)) {    // ci sa poslalo vsetko
+    if (write_full(fd, params, sizeof(NewGameParams)) != 0) {
         perror("send_new_game_params");
         return -1;
     }
@@ -37,8 +75,7 @@ int send_new_game_params(int fd, const NewGameParams *params) {
 
 //  Funkcia prijma vsetky parametre pri novej hre - server prijma od klienta
 int recv_new_game_params(int fd, NewGameParams *params) {
-    ssize_t rec = read(fd, params, sizeof(NewGameParams));
-    if (rec != sizeof(NewGameParams)) {     // ci je vsetko to co ocakavame prijate
+    if (read_full(fd, params, sizeof(NewGameParams)) != 0) {
         perror("recv_new_game_params");
         return -1;
     }

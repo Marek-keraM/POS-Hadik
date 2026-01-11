@@ -11,16 +11,23 @@
 #include "../shared_code/ipc_messages.h"
 
 //      Pripojovanie k serveru
-static int connect_to_server(void) {
+//      path = cesta k socketu (napriklad pre nase pouzitie dolezite /tmp/snake_server.sock)
+static int connect_to_server(const char *path) {
     int fd = socket(AF_UNIX, SOCK_STREAM, 0);   // domain socketu
     if (fd < 0) { perror("socket"); return -1; }
 
-    struct sockaddr_un addr;    //  nastavovanie cesty k socketu
+    struct sockaddr_un addr;    // nastavovanie cesty k socketu
     memset(&addr, 0, sizeof(addr));
     addr.sun_family = AF_UNIX;
-    strncpy(addr.sun_path, SNAKE_SOCK_PATH, sizeof(addr.sun_path) - 1); //  cesta
 
-    if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {  //pripojenie klienta
+    // ak je path NULL alebo prazdny, pouzije sa default
+    if (!path || path[0] == '\0') {
+        path = SNAKE_SOCK_PATH;
+    }
+
+    strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1); // cesta
+
+    if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {  // pripojenie klienta
         perror("connect");
         close(fd);
         return -1;
@@ -41,6 +48,25 @@ static int read_int(const char *prompt) {
 static void clear_stdin_line(void) {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {}  // odstranovanie znakov cely rad!
+}
+
+//  Odstranenie '\n' z konca stringu
+static void trim_newline(char *s) {
+    if (!s) return;
+    size_t n = strlen(s);
+    if (n > 0 && s[n - 1] == '\n') s[n - 1] = '\0';
+}
+
+//  Bezpecne nacitanie riadku cesty k socketu
+static int read_line(const char *prompt, char *out, size_t out_sz) {
+    if (!out || out_sz == 0) return -1;
+
+    printf("%s", prompt);
+    fflush(stdout);
+
+    if (!fgets(out, (int)out_sz, stdin)) return -1;
+    trim_newline(out);
+    return 0;
 }
 //  Ulozenie povodneho terminalu
 static struct termios g_old_term;
@@ -193,16 +219,21 @@ static void live_mode(int fd) {
     }
 
     term_raw_off();
-    clear_stdin_line();
 }
 
 //      Hlavná časť
 int main(void) {
-    int fd = connect_to_server();
-    if (fd < 0) return 1;
+    // aktualne zvoleny server (socket path)
+    char server_path[108]; // typicka max dlzka pre sun_path
+    strncpy(server_path, SNAKE_SOCK_PATH, sizeof(server_path) - 1);
+    server_path[sizeof(server_path) - 1] = '\0';
+
+    // spojenie sa vytvori az ked ho budeme potrebovat (alebo ked si ho zvolime v menu)
+    int fd = -1;
 
     while (1) {
         printf("\n      Menu    \n");
+        printf("0)  Vybrať / zmeniť server -> (aktuálne: %s)\n", server_path);
         printf("1)  Vytvorenie novej hry ->\n");
         printf("2)  Pripojenie sa do hry ->\n");
         printf("3)  Začať hrať hru ->\n");
@@ -211,6 +242,48 @@ int main(void) {
 
         int choice = 0;
         if (scanf("%d", &choice) != 1) break;
+        clear_stdin_line(); // aby sme mohli pouzivat fgets() pri volbe servera
+
+        // 0) dorobena pre viac serverov (volba servera)!!!!!
+        if (choice == 0) {
+            char buf[108];
+            printf("\nAktuálny server: %s\n", server_path);
+            printf("Zadaj cestu k server socketu (Enter = ponechat):\n");
+
+            // nacitajme riadok (moze byt aj prazdny)
+            if (read_line("> ", buf, sizeof(buf)) == 0) {
+                if (buf[0] != '\0') {
+                    strncpy(server_path, buf, sizeof(server_path) - 1);
+                    server_path[sizeof(server_path) - 1] = '\0';
+                }
+
+                // ak uz sme boli pripojeni, zatvorime stare spojenie
+                if (fd != -1) {
+                    close(fd);
+                    fd = -1;
+                }
+
+                // pokusime sa pripojit hned, aby user videl ci to funguje
+                fd = connect_to_server(server_path);
+                if (fd < 0) {
+                    printf("ERROR: Nepodarilo sa pripojit na %s\n", server_path);
+                    fd = -1;
+                } else {
+                    printf("OK: Pripojeny na %s\n", server_path);
+                }
+            }
+            continue;
+        }
+
+        // ak nie sme pripojeni, skusime sa pripojit na aktualne zvoleny server
+        if (fd == -1) {
+            fd = connect_to_server(server_path);
+            if (fd < 0) {
+                printf("ERROR: Nie som pripojeny na server (%s). Najprv zvol server v menu (0).\n", server_path);
+                fd = -1;
+                continue;
+            }
+        }
 
         if (choice == 1) {
             NewGameParams p;
@@ -276,6 +349,6 @@ int main(void) {
         }
     }
 
-    close(fd);
+    if (fd != -1) close(fd);
     return 0;
 }

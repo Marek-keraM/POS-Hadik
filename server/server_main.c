@@ -28,16 +28,23 @@ static long long now_ms(void) {
 }
 
 //  Vytvorenie server socketu
-static int create_server_socket(void) {
+//  path = cesta k socketu (napriklad pre nase pouzitie dolezite /tmp/snake_server.sock)
+static int create_server_socket(const char *path) {
+    // ak je path NULL alebo prazdny pouzije sa default
+    if (!path || path[0] == '\0') {
+        path = SNAKE_SOCK_PATH;
+    }
+
     int fd = socket(AF_UNIX, SOCK_STREAM, 0);       // domain socketu
     if (fd < 0) { perror("socket"); return -1; }
 
-    struct sockaddr_un addr;        //  nastavovanie cesty k socketu
+    struct sockaddr_un addr;        // nastavovanie cesty k socketu
     memset(&addr, 0, sizeof(addr));
     addr.sun_family = AF_UNIX;
-    strncpy(addr.sun_path, SNAKE_SOCK_PATH, sizeof(addr.sun_path) - 1); //  cesta
+    strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1); // cesta
 
-    unlink(SNAKE_SOCK_PATH);    // odstranenie stareho socketu
+    // odstranenie stareho socketu (ak existuje)
+    unlink(path);
 
     if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
         perror("bind");
@@ -83,13 +90,17 @@ static char cell_char(const GameState *gs, int x, int y) {
     return '.';     // . predstavuje len plochu kde sa mozme hýbat
 }
 
-/* ========================================================= */
+int main(int argc, char **argv) {
+    // vybrana cesta k socketu - default alebo z argumentu
+    const char *sock_path = SNAKE_SOCK_PATH;
+    if (argc >= 2 && argv[1] && argv[1][0] != '\0') {
+        sock_path = argv[1];
+    }
 
-int main(void) {
-    int server_fd = create_server_socket();
+    int server_fd = create_server_socket(sock_path);
     if (server_fd < 0) return 1;
 
-    printf("Server spustený: %s\n", SNAKE_SOCK_PATH);
+    printf("Server spustený: %s\n", sock_path);
 
     int client_fd[MAX_CLIENTS];
     int client_snake[MAX_CLIENTS];
@@ -137,14 +148,23 @@ int main(void) {
         if (FD_ISSET(server_fd, &rfds)) {
             int cfd = accept(server_fd, NULL, NULL);
             if (cfd >= 0) {
-                //  ULOZ DO PRVEJ VOLNEJ POZICIE
+                int placed = 0;
+
+                // uloz do prvej volnej pozicie
                 for (int i = 0; i < MAX_CLIENTS; i++) {
                     if (client_fd[i] == -1) {
                         client_fd[i] = cfd;
                         client_snake[i] = -1;
                         printf("Klient je pripojený (slot %d)\n", i);
+                        placed = 1;
                         break;
                     }
+                }
+
+                // ak nie je volny slot, zavri spojenie
+                if (!placed) {
+                    printf("WARN: Prilis vela klientov (MAX_CLIENTS=%d). Odmietam pripojenie.\n", MAX_CLIENTS);
+                    close(cfd);
                 }
             }
         }
@@ -301,6 +321,6 @@ int main(void) {
     }
 
     close(server_fd);
-    unlink(SNAKE_SOCK_PATH);
+    unlink(sock_path);
     return 0;
 }
