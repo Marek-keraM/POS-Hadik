@@ -1,0 +1,52 @@
+\doxysection{shared\+\_\+code/\+ipc\+\_\+messages.c File Reference}
+\hypertarget{ipc__messages_8c}{}\label{ipc__messages_8c}\index{shared\_code/ipc\_messages.c@{shared\_code/ipc\_messages.c}}
+{\ttfamily \+\#include "{}ipc\+\_\+messages.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+Include dependency graph for ipc\+\_\+messages.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{ipc__messages_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8c_aa74d33dc3203a84a321f918f3977fb57}{send\+\_\+ipc\+\_\+message}} (int fd, const \doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8c_abb3ebfd4da3cdd80567d3989ecc80564}{recv\+\_\+ipc\+\_\+message}} (int fd, \doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8c_acfe4c2d00f6861ed724b13ad7af16e95}{send\+\_\+new\+\_\+game\+\_\+params}} (int fd, const \doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}params)
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8c_aaa5e723e0cc0edbde9e03baca531589e}{recv\+\_\+new\+\_\+game\+\_\+params}} (int fd, \doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{ipc__messages_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ipc__messages_8c_abb3ebfd4da3cdd80567d3989ecc80564}\index{ipc\_messages.c@{ipc\_messages.c}!recv\_ipc\_message@{recv\_ipc\_message}}
+\index{recv\_ipc\_message@{recv\_ipc\_message}!ipc\_messages.c@{ipc\_messages.c}}
+\doxysubsubsection{\texorpdfstring{recv\_ipc\_message()}{recv\_ipc\_message()}}
+{\footnotesize\ttfamily \label{ipc__messages_8c_abb3ebfd4da3cdd80567d3989ecc80564} 
+int recv\+\_\+ipc\+\_\+message (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{\doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ipc__messages_8c_aaa5e723e0cc0edbde9e03baca531589e}\index{ipc\_messages.c@{ipc\_messages.c}!recv\_new\_game\_params@{recv\_new\_game\_params}}
+\index{recv\_new\_game\_params@{recv\_new\_game\_params}!ipc\_messages.c@{ipc\_messages.c}}
+\doxysubsubsection{\texorpdfstring{recv\_new\_game\_params()}{recv\_new\_game\_params()}}
+{\footnotesize\ttfamily \label{ipc__messages_8c_aaa5e723e0cc0edbde9e03baca531589e} 
+int recv\+\_\+new\+\_\+game\+\_\+params (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{\doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ipc__messages_8c_aa74d33dc3203a84a321f918f3977fb57}\index{ipc\_messages.c@{ipc\_messages.c}!send\_ipc\_message@{send\_ipc\_message}}
+\index{send\_ipc\_message@{send\_ipc\_message}!ipc\_messages.c@{ipc\_messages.c}}
+\doxysubsubsection{\texorpdfstring{send\_ipc\_message()}{send\_ipc\_message()}}
+{\footnotesize\ttfamily \label{ipc__messages_8c_aa74d33dc3203a84a321f918f3977fb57} 
+int send\+\_\+ipc\+\_\+message (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{const \doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ipc__messages_8c_acfe4c2d00f6861ed724b13ad7af16e95}\index{ipc\_messages.c@{ipc\_messages.c}!send\_new\_game\_params@{send\_new\_game\_params}}
+\index{send\_new\_game\_params@{send\_new\_game\_params}!ipc\_messages.c@{ipc\_messages.c}}
+\doxysubsubsection{\texorpdfstring{send\_new\_game\_params()}{send\_new\_game\_params()}}
+{\footnotesize\ttfamily \label{ipc__messages_8c_acfe4c2d00f6861ed724b13ad7af16e95} 
+int send\+\_\+new\+\_\+game\+\_\+params (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{const \doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+

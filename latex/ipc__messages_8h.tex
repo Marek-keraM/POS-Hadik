@@ -1,0 +1,292 @@
+\doxysection{shared\+\_\+code/\+ipc\+\_\+messages.h File Reference}
+\hypertarget{ipc__messages_8h}{}\label{ipc__messages_8h}\index{shared\_code/ipc\_messages.h@{shared\_code/ipc\_messages.h}}
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include $<$unistd.\+h$>$}\newline
+Include dependency graph for ipc\+\_\+messages.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{ipc__messages_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ipc__messages_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}}
+\item 
+struct \doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{ipc__messages_8h_a18449f6e9d35dc8dea796d2379d82448}{SNAKE\+\_\+\+SOCK\+\_\+\+PATH}}~"{}/\+tmp/\+snake\+\_\+server.\+sock"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589de}{Game\+Mode}} \{ \doxymbox{\hyperlink{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589deaae25497828c34f6aae8e3ba3c68062de}{MODE\+\_\+\+STANDARD}} = 1
+, \doxymbox{\hyperlink{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589dea8a9c07a0abe7f5ac0773ce6753a806bc}{MODE\+\_\+\+TIMED}} = 2
+ \}
+\item 
+enum \doxymbox{\hyperlink{ipc__messages_8h_ac026f4452e357220c38b348f83db2175}{World\+Type}} \{ \doxymbox{\hyperlink{ipc__messages_8h_ac026f4452e357220c38b348f83db2175acb9c50042b87f69946875e66e66e94a4}{WORLD\+\_\+\+EMPTY}} = 1
+, \doxymbox{\hyperlink{ipc__messages_8h_ac026f4452e357220c38b348f83db2175a47de0ad50126c4641eea71fdd38fe310}{WORLD\+\_\+\+OBSTACLES}} = 2
+, \doxymbox{\hyperlink{ipc__messages_8h_ac026f4452e357220c38b348f83db2175a3e6d9456fe441f578ed8f375ee3b1ff3}{WORLD\+\_\+\+FROM\+\_\+\+FILE}} = 3
+ \}
+\item 
+enum \doxymbox{\hyperlink{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aa}{Direction}} \{ \doxymbox{\hyperlink{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa0b76fb863426c07c6c997a8d9523257b}{DIR\+\_\+\+UP}} = 0
+, \doxymbox{\hyperlink{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa5dd21ef3d450f62c44082756cab8f6f8}{DIR\+\_\+\+RIGHT}} = 1
+, \doxymbox{\hyperlink{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaab1bf68da897d09488069dd40e54f442d}{DIR\+\_\+\+DOWN}} = 2
+, \doxymbox{\hyperlink{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa1307dc42d06472935155dcbe283bc660}{DIR\+\_\+\+LEFT}} = 3
+ \}
+\item 
+enum \doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05b}{Client\+Cmd}} \{ \newline
+\doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05baf05d89625b1dd1f98c1bb836afb0dd1d}{C\+\_\+\+NEW\+\_\+\+GAME}} = 1
+, \doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba9b3b25d26576ca787564ec0ca549a125}{C\+\_\+\+JOIN\+\_\+\+GAME}} = 2
+, \doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2187aa3bd2fb416ee48b7c8efdf966f9}{C\+\_\+\+PAUSE}} = 3
+, \doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba50d98f6fbb1b58404d57a2faa26c5306}{C\+\_\+\+RESUME}} = 4
+, \newline
+\doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2aca3b4390ad27ae48ff5094939e2dd9}{C\+\_\+\+QUIT}} = 5
+, \doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba4f5c5c773ca13e93f0344ed5fda78c53}{C\+\_\+\+INPUT}} = 6
+, \doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2babf6359c63fb5dd98b57219a4882c8}{C\+\_\+\+GET\+\_\+\+STATE}} = 7
+ \}
+\item 
+enum \doxymbox{\hyperlink{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adb}{Server\+Cmd}} \{ \newline
+\doxymbox{\hyperlink{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbae36cb8bfb9670d44e24261506cae2791}{S\+\_\+\+OK}} = 100
+, \doxymbox{\hyperlink{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbaa09fa5ed5be816eeb89a11be5a00c477}{S\+\_\+\+ERROR}} = 101
+, \doxymbox{\hyperlink{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbae3958eb01538832e9dae1fbb42437206}{S\+\_\+\+FREEZE}} = 102
+, \doxymbox{\hyperlink{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adba2a02e04bdd5b644cbd2a39596344d39e}{S\+\_\+\+STATE\+\_\+\+HEADER}} = 110
+, \newline
+\doxymbox{\hyperlink{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbaafcb54335f8160070e52bd2617fdab4d}{S\+\_\+\+STATE\+\_\+\+CELL}} = 111
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8h_aa74d33dc3203a84a321f918f3977fb57}{send\+\_\+ipc\+\_\+message}} (int fd, const \doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8h_abb3ebfd4da3cdd80567d3989ecc80564}{recv\+\_\+ipc\+\_\+message}} (int fd, \doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8h_acfe4c2d00f6861ed724b13ad7af16e95}{send\+\_\+new\+\_\+game\+\_\+params}} (int fd, const \doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}params)
+\item 
+int \doxymbox{\hyperlink{ipc__messages_8h_aaa5e723e0cc0edbde9e03baca531589e}{recv\+\_\+new\+\_\+game\+\_\+params}} (int fd, \doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ipc__messages_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ipc__messages_8h_a18449f6e9d35dc8dea796d2379d82448}\index{ipc\_messages.h@{ipc\_messages.h}!SNAKE\_SOCK\_PATH@{SNAKE\_SOCK\_PATH}}
+\index{SNAKE\_SOCK\_PATH@{SNAKE\_SOCK\_PATH}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{SNAKE\_SOCK\_PATH}{SNAKE\_SOCK\_PATH}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_a18449f6e9d35dc8dea796d2379d82448} 
+\+\#define SNAKE\+\_\+\+SOCK\+\_\+\+PATH~"{}/\+tmp/\+snake\+\_\+server.\+sock"{}}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{ipc__messages_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05b}\index{ipc\_messages.h@{ipc\_messages.h}!ClientCmd@{ClientCmd}}
+\index{ClientCmd@{ClientCmd}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{ClientCmd}{ClientCmd}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05b} 
+enum \doxymbox{\hyperlink{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05b}{Client\+Cmd}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_NEW\_GAME@{C\_NEW\_GAME}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!C\_NEW\_GAME@{C\_NEW\_GAME}}
+}\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05baf05d89625b1dd1f98c1bb836afb0dd1d}\label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05baf05d89625b1dd1f98c1bb836afb0dd1d} 
+C\+\_\+\+NEW\+\_\+\+GAME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_JOIN\_GAME@{C\_JOIN\_GAME}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!C\_JOIN\_GAME@{C\_JOIN\_GAME}}
+}\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba9b3b25d26576ca787564ec0ca549a125}\label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba9b3b25d26576ca787564ec0ca549a125} 
+C\+\_\+\+JOIN\+\_\+\+GAME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_PAUSE@{C\_PAUSE}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!C\_PAUSE@{C\_PAUSE}}
+}\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2187aa3bd2fb416ee48b7c8efdf966f9}\label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2187aa3bd2fb416ee48b7c8efdf966f9} 
+C\+\_\+\+PAUSE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_RESUME@{C\_RESUME}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!C\_RESUME@{C\_RESUME}}
+}\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba50d98f6fbb1b58404d57a2faa26c5306}\label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba50d98f6fbb1b58404d57a2faa26c5306} 
+C\+\_\+\+RESUME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_QUIT@{C\_QUIT}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!C\_QUIT@{C\_QUIT}}
+}\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2aca3b4390ad27ae48ff5094939e2dd9}\label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2aca3b4390ad27ae48ff5094939e2dd9} 
+C\+\_\+\+QUIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_INPUT@{C\_INPUT}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!C\_INPUT@{C\_INPUT}}
+}\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba4f5c5c773ca13e93f0344ed5fda78c53}\label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba4f5c5c773ca13e93f0344ed5fda78c53} 
+C\+\_\+\+INPUT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_GET\_STATE@{C\_GET\_STATE}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!C\_GET\_STATE@{C\_GET\_STATE}}
+}\Hypertarget{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2babf6359c63fb5dd98b57219a4882c8}\label{ipc__messages_8h_ad4698f47029ae4f632a0339e3ffac05ba2babf6359c63fb5dd98b57219a4882c8} 
+C\+\_\+\+GET\+\_\+\+STATE&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aa}\index{ipc\_messages.h@{ipc\_messages.h}!Direction@{Direction}}
+\index{Direction@{Direction}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{Direction}{Direction}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aa} 
+enum \doxymbox{\hyperlink{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aa}{Direction}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_UP@{DIR\_UP}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!DIR\_UP@{DIR\_UP}}
+}\Hypertarget{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa0b76fb863426c07c6c997a8d9523257b}\label{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa0b76fb863426c07c6c997a8d9523257b} 
+DIR\+\_\+\+UP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_RIGHT@{DIR\_RIGHT}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!DIR\_RIGHT@{DIR\_RIGHT}}
+}\Hypertarget{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa5dd21ef3d450f62c44082756cab8f6f8}\label{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa5dd21ef3d450f62c44082756cab8f6f8} 
+DIR\+\_\+\+RIGHT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_DOWN@{DIR\_DOWN}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!DIR\_DOWN@{DIR\_DOWN}}
+}\Hypertarget{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaab1bf68da897d09488069dd40e54f442d}\label{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaab1bf68da897d09488069dd40e54f442d} 
+DIR\+\_\+\+DOWN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_LEFT@{DIR\_LEFT}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!DIR\_LEFT@{DIR\_LEFT}}
+}\Hypertarget{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa1307dc42d06472935155dcbe283bc660}\label{ipc__messages_8h_a224b9163917ac32fc95a60d8c1eec3aaa1307dc42d06472935155dcbe283bc660} 
+DIR\+\_\+\+LEFT&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589de}\index{ipc\_messages.h@{ipc\_messages.h}!GameMode@{GameMode}}
+\index{GameMode@{GameMode}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{GameMode}{GameMode}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589de} 
+enum \doxymbox{\hyperlink{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589de}{Game\+Mode}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_STANDARD@{MODE\_STANDARD}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!MODE\_STANDARD@{MODE\_STANDARD}}
+}\Hypertarget{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589deaae25497828c34f6aae8e3ba3c68062de}\label{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589deaae25497828c34f6aae8e3ba3c68062de} 
+MODE\+\_\+\+STANDARD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_TIMED@{MODE\_TIMED}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!MODE\_TIMED@{MODE\_TIMED}}
+}\Hypertarget{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589dea8a9c07a0abe7f5ac0773ce6753a806bc}\label{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589dea8a9c07a0abe7f5ac0773ce6753a806bc} 
+MODE\+\_\+\+TIMED&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adb}\index{ipc\_messages.h@{ipc\_messages.h}!ServerCmd@{ServerCmd}}
+\index{ServerCmd@{ServerCmd}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{ServerCmd}{ServerCmd}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adb} 
+enum \doxymbox{\hyperlink{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adb}{Server\+Cmd}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\_OK@{S\_OK}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!S\_OK@{S\_OK}}
+}\Hypertarget{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbae36cb8bfb9670d44e24261506cae2791}\label{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbae36cb8bfb9670d44e24261506cae2791} 
+S\+\_\+\+OK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\_ERROR@{S\_ERROR}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!S\_ERROR@{S\_ERROR}}
+}\Hypertarget{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbaa09fa5ed5be816eeb89a11be5a00c477}\label{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbaa09fa5ed5be816eeb89a11be5a00c477} 
+S\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\_FREEZE@{S\_FREEZE}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!S\_FREEZE@{S\_FREEZE}}
+}\Hypertarget{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbae3958eb01538832e9dae1fbb42437206}\label{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbae3958eb01538832e9dae1fbb42437206} 
+S\+\_\+\+FREEZE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\_STATE\_HEADER@{S\_STATE\_HEADER}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!S\_STATE\_HEADER@{S\_STATE\_HEADER}}
+}\Hypertarget{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adba2a02e04bdd5b644cbd2a39596344d39e}\label{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adba2a02e04bdd5b644cbd2a39596344d39e} 
+S\+\_\+\+STATE\+\_\+\+HEADER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\_STATE\_CELL@{S\_STATE\_CELL}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!S\_STATE\_CELL@{S\_STATE\_CELL}}
+}\Hypertarget{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbaafcb54335f8160070e52bd2617fdab4d}\label{ipc__messages_8h_afc64fa11830a6deabb0333a52afb4adbaafcb54335f8160070e52bd2617fdab4d} 
+S\+\_\+\+STATE\+\_\+\+CELL&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{ipc__messages_8h_ac026f4452e357220c38b348f83db2175}\index{ipc\_messages.h@{ipc\_messages.h}!WorldType@{WorldType}}
+\index{WorldType@{WorldType}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{WorldType}{WorldType}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_ac026f4452e357220c38b348f83db2175} 
+enum \doxymbox{\hyperlink{ipc__messages_8h_ac026f4452e357220c38b348f83db2175}{World\+Type}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WORLD\_EMPTY@{WORLD\_EMPTY}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!WORLD\_EMPTY@{WORLD\_EMPTY}}
+}\Hypertarget{ipc__messages_8h_ac026f4452e357220c38b348f83db2175acb9c50042b87f69946875e66e66e94a4}\label{ipc__messages_8h_ac026f4452e357220c38b348f83db2175acb9c50042b87f69946875e66e66e94a4} 
+WORLD\+\_\+\+EMPTY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WORLD\_OBSTACLES@{WORLD\_OBSTACLES}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!WORLD\_OBSTACLES@{WORLD\_OBSTACLES}}
+}\Hypertarget{ipc__messages_8h_ac026f4452e357220c38b348f83db2175a47de0ad50126c4641eea71fdd38fe310}\label{ipc__messages_8h_ac026f4452e357220c38b348f83db2175a47de0ad50126c4641eea71fdd38fe310} 
+WORLD\+\_\+\+OBSTACLES&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WORLD\_FROM\_FILE@{WORLD\_FROM\_FILE}!ipc\_messages.h@{ipc\_messages.h}}
+\index{ipc\_messages.h@{ipc\_messages.h}!WORLD\_FROM\_FILE@{WORLD\_FROM\_FILE}}
+}\Hypertarget{ipc__messages_8h_ac026f4452e357220c38b348f83db2175a3e6d9456fe441f578ed8f375ee3b1ff3}\label{ipc__messages_8h_ac026f4452e357220c38b348f83db2175a3e6d9456fe441f578ed8f375ee3b1ff3} 
+WORLD\+\_\+\+FROM\+\_\+\+FILE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{ipc__messages_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ipc__messages_8h_abb3ebfd4da3cdd80567d3989ecc80564}\index{ipc\_messages.h@{ipc\_messages.h}!recv\_ipc\_message@{recv\_ipc\_message}}
+\index{recv\_ipc\_message@{recv\_ipc\_message}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{recv\_ipc\_message()}{recv\_ipc\_message()}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_abb3ebfd4da3cdd80567d3989ecc80564} 
+int recv\+\_\+ipc\+\_\+message (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{\doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ipc__messages_8h_aaa5e723e0cc0edbde9e03baca531589e}\index{ipc\_messages.h@{ipc\_messages.h}!recv\_new\_game\_params@{recv\_new\_game\_params}}
+\index{recv\_new\_game\_params@{recv\_new\_game\_params}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{recv\_new\_game\_params()}{recv\_new\_game\_params()}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_aaa5e723e0cc0edbde9e03baca531589e} 
+int recv\+\_\+new\+\_\+game\+\_\+params (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{\doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ipc__messages_8h_aa74d33dc3203a84a321f918f3977fb57}\index{ipc\_messages.h@{ipc\_messages.h}!send\_ipc\_message@{send\_ipc\_message}}
+\index{send\_ipc\_message@{send\_ipc\_message}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{send\_ipc\_message()}{send\_ipc\_message()}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_aa74d33dc3203a84a321f918f3977fb57} 
+int send\+\_\+ipc\+\_\+message (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{const \doxymbox{\hyperlink{struct_ipc_message}{Ipc\+Message}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ipc__messages_8h_acfe4c2d00f6861ed724b13ad7af16e95}\index{ipc\_messages.h@{ipc\_messages.h}!send\_new\_game\_params@{send\_new\_game\_params}}
+\index{send\_new\_game\_params@{send\_new\_game\_params}!ipc\_messages.h@{ipc\_messages.h}}
+\doxysubsubsection{\texorpdfstring{send\_new\_game\_params()}{send\_new\_game\_params()}}
+{\footnotesize\ttfamily \label{ipc__messages_8h_acfe4c2d00f6861ed724b13ad7af16e95} 
+int send\+\_\+new\+\_\+game\+\_\+params (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{const \doxymbox{\hyperlink{struct_new_game_params}{New\+Game\+Params}} \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+

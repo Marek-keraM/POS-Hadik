@@ -1,0 +1,123 @@
+\doxysection{client/\+client\+\_\+main.c File Reference}
+\hypertarget{client__main_8c}{}\label{client__main_8c}\index{client/client\_main.c@{client/client\_main.c}}
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$unistd.\+h$>$}\newline
+{\ttfamily \+\#include $<$sys/\+socket.\+h$>$}\newline
+{\ttfamily \+\#include $<$sys/\+un.\+h$>$}\newline
+{\ttfamily \+\#include $<$sys/\+select.\+h$>$}\newline
+{\ttfamily \+\#include $<$termios.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+shared\+\_\+code/\+ipc\+\_\+messages.\+h"{}}\newline
+Include dependency graph for client\+\_\+main.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{client__main_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \doxymbox{\hyperlink{client__main_8c_a8d3331e596a23bfa5f4a3ebc32631d06}{connect\+\_\+to\+\_\+server}} (void)
+\item 
+static int \doxymbox{\hyperlink{client__main_8c_a7475e7178b988be155e2e997abad8657}{read\+\_\+int}} (const char \texorpdfstring{$\ast$}{*}prompt)
+\item 
+static void \doxymbox{\hyperlink{client__main_8c_a4511c598488f73e30f6f19b973548a10}{clear\+\_\+stdin\+\_\+line}} (void)
+\item 
+static void \doxymbox{\hyperlink{client__main_8c_a14f8544eb90c932bac129305b9b53a3b}{term\+\_\+raw\+\_\+on}} (void)
+\item 
+static void \doxymbox{\hyperlink{client__main_8c_afb562ec7d1dd3b1567adb62970552cdb}{term\+\_\+raw\+\_\+off}} (void)
+\item 
+static void \doxymbox{\hyperlink{client__main_8c_a8bb55be7601869b9f9db827fc174cca2}{clear\+\_\+screen}} (void)
+\item 
+static void \doxymbox{\hyperlink{client__main_8c_aadb18955fd191c0035f8f54c450ebfdb}{send\+\_\+simple\+\_\+cmd}} (int fd, int cmd)
+\item 
+static int \doxymbox{\hyperlink{client__main_8c_a9754a72ec909fa92f010121cc6e2ff0e}{fetch\+\_\+and\+\_\+render}} (int fd)
+\item 
+static void \doxymbox{\hyperlink{client__main_8c_a483291e6e47945deb8509d2aba6989ee}{live\+\_\+mode}} (int fd)
+\item 
+int \doxymbox{\hyperlink{client__main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static struct termios \doxymbox{\hyperlink{client__main_8c_a794e6b42d717fec50c66d060e83820f3}{g\+\_\+old\+\_\+term}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{client__main_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{client__main_8c_a8bb55be7601869b9f9db827fc174cca2}\index{client\_main.c@{client\_main.c}!clear\_screen@{clear\_screen}}
+\index{clear\_screen@{clear\_screen}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{clear\_screen()}{clear\_screen()}}
+{\footnotesize\ttfamily \label{client__main_8c_a8bb55be7601869b9f9db827fc174cca2} 
+void clear\+\_\+screen (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_a4511c598488f73e30f6f19b973548a10}\index{client\_main.c@{client\_main.c}!clear\_stdin\_line@{clear\_stdin\_line}}
+\index{clear\_stdin\_line@{clear\_stdin\_line}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{clear\_stdin\_line()}{clear\_stdin\_line()}}
+{\footnotesize\ttfamily \label{client__main_8c_a4511c598488f73e30f6f19b973548a10} 
+void clear\+\_\+stdin\+\_\+line (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_a8d3331e596a23bfa5f4a3ebc32631d06}\index{client\_main.c@{client\_main.c}!connect\_to\_server@{connect\_to\_server}}
+\index{connect\_to\_server@{connect\_to\_server}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{connect\_to\_server()}{connect\_to\_server()}}
+{\footnotesize\ttfamily \label{client__main_8c_a8d3331e596a23bfa5f4a3ebc32631d06} 
+int connect\+\_\+to\+\_\+server (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_a9754a72ec909fa92f010121cc6e2ff0e}\index{client\_main.c@{client\_main.c}!fetch\_and\_render@{fetch\_and\_render}}
+\index{fetch\_and\_render@{fetch\_and\_render}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{fetch\_and\_render()}{fetch\_and\_render()}}
+{\footnotesize\ttfamily \label{client__main_8c_a9754a72ec909fa92f010121cc6e2ff0e} 
+int fetch\+\_\+and\+\_\+render (\begin{DoxyParamCaption}\item[{int}]{fd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_a483291e6e47945deb8509d2aba6989ee}\index{client\_main.c@{client\_main.c}!live\_mode@{live\_mode}}
+\index{live\_mode@{live\_mode}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{live\_mode()}{live\_mode()}}
+{\footnotesize\ttfamily \label{client__main_8c_a483291e6e47945deb8509d2aba6989ee} 
+void live\+\_\+mode (\begin{DoxyParamCaption}\item[{int}]{fd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{client\_main.c@{client\_main.c}!main@{main}}
+\index{main@{main}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{client__main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{client__main_8c_a7475e7178b988be155e2e997abad8657}\index{client\_main.c@{client\_main.c}!read\_int@{read\_int}}
+\index{read\_int@{read\_int}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{read\_int()}{read\_int()}}
+{\footnotesize\ttfamily \label{client__main_8c_a7475e7178b988be155e2e997abad8657} 
+int read\+\_\+int (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{prompt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_aadb18955fd191c0035f8f54c450ebfdb}\index{client\_main.c@{client\_main.c}!send\_simple\_cmd@{send\_simple\_cmd}}
+\index{send\_simple\_cmd@{send\_simple\_cmd}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{send\_simple\_cmd()}{send\_simple\_cmd()}}
+{\footnotesize\ttfamily \label{client__main_8c_aadb18955fd191c0035f8f54c450ebfdb} 
+void send\+\_\+simple\+\_\+cmd (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{int}]{cmd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_afb562ec7d1dd3b1567adb62970552cdb}\index{client\_main.c@{client\_main.c}!term\_raw\_off@{term\_raw\_off}}
+\index{term\_raw\_off@{term\_raw\_off}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{term\_raw\_off()}{term\_raw\_off()}}
+{\footnotesize\ttfamily \label{client__main_8c_afb562ec7d1dd3b1567adb62970552cdb} 
+void term\+\_\+raw\+\_\+off (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{client__main_8c_a14f8544eb90c932bac129305b9b53a3b}\index{client\_main.c@{client\_main.c}!term\_raw\_on@{term\_raw\_on}}
+\index{term\_raw\_on@{term\_raw\_on}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{term\_raw\_on()}{term\_raw\_on()}}
+{\footnotesize\ttfamily \label{client__main_8c_a14f8544eb90c932bac129305b9b53a3b} 
+void term\+\_\+raw\+\_\+on (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{client__main_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{client__main_8c_a794e6b42d717fec50c66d060e83820f3}\index{client\_main.c@{client\_main.c}!g\_old\_term@{g\_old\_term}}
+\index{g\_old\_term@{g\_old\_term}!client\_main.c@{client\_main.c}}
+\doxysubsubsection{\texorpdfstring{g\_old\_term}{g\_old\_term}}
+{\footnotesize\ttfamily \label{client__main_8c_a794e6b42d717fec50c66d060e83820f3} 
+struct termios g\+\_\+old\+\_\+term\hspace{0.3cm}{\ttfamily [static]}}
+

@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['c_0',['c',['../struct_ipc_message.html#a59d6f80351569ef7b3b640ec250f75d8',1,'IpcMessage']]],
+  ['c_5fget_5fstate_1',['C_GET_STATE',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05ba2babf6359c63fb5dd98b57219a4882c8',1,'ipc_messages.h']]],
+  ['c_5finput_2',['C_INPUT',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05ba4f5c5c773ca13e93f0344ed5fda78c53',1,'ipc_messages.h']]],
+  ['c_5fjoin_5fgame_3',['C_JOIN_GAME',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05ba9b3b25d26576ca787564ec0ca549a125',1,'ipc_messages.h']]],
+  ['c_5fnew_5fgame_4',['C_NEW_GAME',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05baf05d89625b1dd1f98c1bb836afb0dd1d',1,'ipc_messages.h']]],
+  ['c_5fpause_5',['C_PAUSE',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05ba2187aa3bd2fb416ee48b7c8efdf966f9',1,'ipc_messages.h']]],
+  ['c_5fquit_6',['C_QUIT',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05ba2aca3b4390ad27ae48ff5094939e2dd9',1,'ipc_messages.h']]],
+  ['c_5fresume_7',['C_RESUME',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05ba50d98f6fbb1b58404d57a2faa26c5306',1,'ipc_messages.h']]],
+  ['c_5fversion_8',['C_VERSION',['../_c_make_c_compiler_id_8c.html#adaee3ee7c5a7a22451ea25e762e1d7d5',1,'CMakeCCompilerId.c']]],
+  ['cell_5fchar_9',['cell_char',['../server__main_8c.html#a10e7efe3ed78be2f8cd6fedf2d95c5b1',1,'server_main.c']]],
+  ['cell_5foccupied_5fby_5fsnake_10',['cell_occupied_by_snake',['../game__state_8c.html#ac9f77655d651d533984b0eb4f1d08050',1,'game_state.c']]],
+  ['clear_5fscreen_11',['clear_screen',['../client__main_8c.html#a8bb55be7601869b9f9db827fc174cca2',1,'client_main.c']]],
+  ['clear_5fstdin_5fline_12',['clear_stdin_line',['../client__main_8c.html#a4511c598488f73e30f6f19b973548a10',1,'client_main.c']]],
+  ['client_5fmain_2ec_13',['client_main.c',['../client__main_8c.html',1,'']]],
+  ['clientcmd_14',['ClientCmd',['../ipc__messages_8h.html#ad4698f47029ae4f632a0339e3ffac05b',1,'ipc_messages.h']]],
+  ['cmakeccompilerid_2ec_15',['CMakeCCompilerId.c',['../_c_make_c_compiler_id_8c.html',1,'']]],
+  ['cmd_16',['cmd',['../struct_ipc_message.html#a29dd96ad14cc1cf10b1ebbc4b1e83176',1,'IpcMessage']]],
+  ['compiler_5fid_17',['COMPILER_ID',['../_c_make_c_compiler_id_8c.html#a81dee0709ded976b2e0319239f72d174',1,'CMakeCCompilerId.c']]],
+  ['compute_5fnext_5fhead_18',['compute_next_head',['../game__state_8c.html#ae7dc02d57fd0b348b74dab5e91d57d68',1,'game_state.c']]],
+  ['connect_5fto_5fserver_19',['connect_to_server',['../client__main_8c.html#a8d3331e596a23bfa5f4a3ebc32631d06',1,'client_main.c']]],
+  ['count_5factive_5fsnakes_20',['count_active_snakes',['../game__state_8c.html#a1d87dd5358c61ff23b4c52b288529d1d',1,'game_state.c']]],
+  ['create_5fserver_5fsocket_21',['create_server_socket',['../server__main_8c.html#a95675201b7a185b850d58701767451b8',1,'server_main.c']]]
+];

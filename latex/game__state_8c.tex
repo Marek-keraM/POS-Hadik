@@ -1,0 +1,206 @@
+\doxysection{shared\+\_\+code/\+game\+\_\+state.c File Reference}
+\hypertarget{game__state_8c}{}\label{game__state_8c}\index{shared\_code/game\_state.c@{shared\_code/game\_state.c}}
+{\ttfamily \+\#include "{}game\+\_\+state.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+Include dependency graph for game\+\_\+state.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{game__state_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_aa68a09c04c0f5135651ca806957356c8}{idx\+\_\+of}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int x, int y)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_a41d3b3235aadd259a1810e208b7bf6cf}{snake\+\_\+seg\+\_\+capacity}} (const \doxymbox{\hyperlink{struct_snake}{Snake}} \texorpdfstring{$\ast$}{*}s)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_a663d315e12ced9b665d745dc37bdbb59}{fruits\+\_\+capacity}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs)
+\item 
+int \doxymbox{\hyperlink{game__state_8c_a595c651c2e5e4943f5dea72316817a69}{gs\+\_\+is\+\_\+obstacle}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int x, int y)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_a1d87dd5358c61ff23b4c52b288529d1d}{count\+\_\+active\+\_\+snakes}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_acd58fb343608ce4179f81bd29df12be4}{fruit\+\_\+exists}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int x, int y)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_ac9f77655d651d533984b0eb4f1d08050}{cell\+\_\+occupied\+\_\+by\+\_\+snake}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int x, int y)
+\item 
+static void \doxymbox{\hyperlink{game__state_8c_ab99d78f6500ddf12e66811464a74e140}{bfs\+\_\+fill}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int sx, int sy, unsigned char \texorpdfstring{$\ast$}{*}out)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_a40a820bbd603761210d0f7c24d4a56af}{popcount\+\_\+u8}} (const unsigned char \texorpdfstring{$\ast$}{*}arr, int n)
+\item 
+static void \doxymbox{\hyperlink{game__state_8c_ab1d38964ac49934934b52ce92ffb46ec}{reachable\+\_\+intersection\+\_\+all\+\_\+snakes}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, unsigned char \texorpdfstring{$\ast$}{*}out)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_a1d0b661e68e82f6028fcb1873a4c430d}{eat\+\_\+fruit\+\_\+if\+\_\+present}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int hx, int hy)
+\item 
+static void \doxymbox{\hyperlink{game__state_8c_a93daf1d8af51cab07b7571b615bfe012}{ensure\+\_\+fruits}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_a4782933787f87245b6e8e4c4fee9e916}{map\+\_\+is\+\_\+connected\+\_\+free}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs)
+\item 
+int \doxymbox{\hyperlink{game__state_8c_a92e3306bba2d74df41e574090acbbba4}{gs\+\_\+generate\+\_\+obstacles\+\_\+random}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int obstacle\+\_\+count)
+\item 
+void \doxymbox{\hyperlink{game__state_8c_a5c20fa84389ee70e3714a1d565bbeda7}{gs\+\_\+init}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int width, int height, int multiplayer)
+\item 
+void \doxymbox{\hyperlink{game__state_8c_a3af0f70b64404d625ae58446ee845ae0}{gs\+\_\+destroy}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs)
+\item 
+void \doxymbox{\hyperlink{game__state_8c_a7880671364101bab7aee85a0fc301049}{gs\+\_\+set\+\_\+mode}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, \doxymbox{\hyperlink{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589de}{Game\+Mode}} mode, int time\+\_\+limit\+\_\+sec)
+\item 
+int \doxymbox{\hyperlink{game__state_8c_aeb75fb732afd4039f0d4bb58cd48f349}{gs\+\_\+add\+\_\+snake}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs)
+\item 
+void \doxymbox{\hyperlink{game__state_8c_acc6bfdf74b9b7feead7040129bbbc1f0}{gs\+\_\+remove\+\_\+snake}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int snake\+\_\+id)
+\item 
+static void \doxymbox{\hyperlink{game__state_8c_ae7dc02d57fd0b348b74dab5e91d57d68}{compute\+\_\+next\+\_\+head}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, const \doxymbox{\hyperlink{struct_snake}{Snake}} \texorpdfstring{$\ast$}{*}s, int \texorpdfstring{$\ast$}{*}nx, int \texorpdfstring{$\ast$}{*}ny)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_ac0f3a3b1a2dbeaed58a4f0d4be712000}{will\+\_\+hit\+\_\+wall\+\_\+or\+\_\+obstacle}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int x, int y)
+\item 
+static int \doxymbox{\hyperlink{game__state_8c_aeea2d1b1b4995d28f89461e4339dc480}{hits\+\_\+any\+\_\+snake}} (const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, int x, int y)
+\item 
+void \doxymbox{\hyperlink{game__state_8c_a9cbfbcd2a081cc603d3792bd8d175bc9}{gs\+\_\+tick}} (\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}gs, long long \doxymbox{\hyperlink{server__main_8c_ab62a204c45534df8a9656ee13e7cab49}{now\+\_\+ms}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{game__state_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{game__state_8c_ab99d78f6500ddf12e66811464a74e140}\index{game\_state.c@{game\_state.c}!bfs\_fill@{bfs\_fill}}
+\index{bfs\_fill@{bfs\_fill}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{bfs\_fill()}{bfs\_fill()}}
+{\footnotesize\ttfamily \label{game__state_8c_ab99d78f6500ddf12e66811464a74e140} 
+void bfs\+\_\+fill (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{sx}{, }\item[{int}]{sy}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_ac9f77655d651d533984b0eb4f1d08050}\index{game\_state.c@{game\_state.c}!cell\_occupied\_by\_snake@{cell\_occupied\_by\_snake}}
+\index{cell\_occupied\_by\_snake@{cell\_occupied\_by\_snake}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{cell\_occupied\_by\_snake()}{cell\_occupied\_by\_snake()}}
+{\footnotesize\ttfamily \label{game__state_8c_ac9f77655d651d533984b0eb4f1d08050} 
+int cell\+\_\+occupied\+\_\+by\+\_\+snake (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_ae7dc02d57fd0b348b74dab5e91d57d68}\index{game\_state.c@{game\_state.c}!compute\_next\_head@{compute\_next\_head}}
+\index{compute\_next\_head@{compute\_next\_head}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{compute\_next\_head()}{compute\_next\_head()}}
+{\footnotesize\ttfamily \label{game__state_8c_ae7dc02d57fd0b348b74dab5e91d57d68} 
+void compute\+\_\+next\+\_\+head (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{const \doxymbox{\hyperlink{struct_snake}{Snake}} \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{nx}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{ny}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_a1d87dd5358c61ff23b4c52b288529d1d}\index{game\_state.c@{game\_state.c}!count\_active\_snakes@{count\_active\_snakes}}
+\index{count\_active\_snakes@{count\_active\_snakes}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{count\_active\_snakes()}{count\_active\_snakes()}}
+{\footnotesize\ttfamily \label{game__state_8c_a1d87dd5358c61ff23b4c52b288529d1d} 
+int count\+\_\+active\+\_\+snakes (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_a1d0b661e68e82f6028fcb1873a4c430d}\index{game\_state.c@{game\_state.c}!eat\_fruit\_if\_present@{eat\_fruit\_if\_present}}
+\index{eat\_fruit\_if\_present@{eat\_fruit\_if\_present}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{eat\_fruit\_if\_present()}{eat\_fruit\_if\_present()}}
+{\footnotesize\ttfamily \label{game__state_8c_a1d0b661e68e82f6028fcb1873a4c430d} 
+int eat\+\_\+fruit\+\_\+if\+\_\+present (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{hx}{, }\item[{int}]{hy}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_a93daf1d8af51cab07b7571b615bfe012}\index{game\_state.c@{game\_state.c}!ensure\_fruits@{ensure\_fruits}}
+\index{ensure\_fruits@{ensure\_fruits}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{ensure\_fruits()}{ensure\_fruits()}}
+{\footnotesize\ttfamily \label{game__state_8c_a93daf1d8af51cab07b7571b615bfe012} 
+void ensure\+\_\+fruits (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_acd58fb343608ce4179f81bd29df12be4}\index{game\_state.c@{game\_state.c}!fruit\_exists@{fruit\_exists}}
+\index{fruit\_exists@{fruit\_exists}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{fruit\_exists()}{fruit\_exists()}}
+{\footnotesize\ttfamily \label{game__state_8c_acd58fb343608ce4179f81bd29df12be4} 
+int fruit\+\_\+exists (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_a663d315e12ced9b665d745dc37bdbb59}\index{game\_state.c@{game\_state.c}!fruits\_capacity@{fruits\_capacity}}
+\index{fruits\_capacity@{fruits\_capacity}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{fruits\_capacity()}{fruits\_capacity()}}
+{\footnotesize\ttfamily \label{game__state_8c_a663d315e12ced9b665d745dc37bdbb59} 
+int fruits\+\_\+capacity (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_aeb75fb732afd4039f0d4bb58cd48f349}\index{game\_state.c@{game\_state.c}!gs\_add\_snake@{gs\_add\_snake}}
+\index{gs\_add\_snake@{gs\_add\_snake}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_add\_snake()}{gs\_add\_snake()}}
+{\footnotesize\ttfamily \label{game__state_8c_aeb75fb732afd4039f0d4bb58cd48f349} 
+int gs\+\_\+add\+\_\+snake (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_a3af0f70b64404d625ae58446ee845ae0}\index{game\_state.c@{game\_state.c}!gs\_destroy@{gs\_destroy}}
+\index{gs\_destroy@{gs\_destroy}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_destroy()}{gs\_destroy()}}
+{\footnotesize\ttfamily \label{game__state_8c_a3af0f70b64404d625ae58446ee845ae0} 
+void gs\+\_\+destroy (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_a92e3306bba2d74df41e574090acbbba4}\index{game\_state.c@{game\_state.c}!gs\_generate\_obstacles\_random@{gs\_generate\_obstacles\_random}}
+\index{gs\_generate\_obstacles\_random@{gs\_generate\_obstacles\_random}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_generate\_obstacles\_random()}{gs\_generate\_obstacles\_random()}}
+{\footnotesize\ttfamily \label{game__state_8c_a92e3306bba2d74df41e574090acbbba4} 
+int gs\+\_\+generate\+\_\+obstacles\+\_\+random (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{obstacle\+\_\+count}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_a5c20fa84389ee70e3714a1d565bbeda7}\index{game\_state.c@{game\_state.c}!gs\_init@{gs\_init}}
+\index{gs\_init@{gs\_init}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_init()}{gs\_init()}}
+{\footnotesize\ttfamily \label{game__state_8c_a5c20fa84389ee70e3714a1d565bbeda7} 
+void gs\+\_\+init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{width}{, }\item[{int}]{height}{, }\item[{int}]{multiplayer}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_a595c651c2e5e4943f5dea72316817a69}\index{game\_state.c@{game\_state.c}!gs\_is\_obstacle@{gs\_is\_obstacle}}
+\index{gs\_is\_obstacle@{gs\_is\_obstacle}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_is\_obstacle()}{gs\_is\_obstacle()}}
+{\footnotesize\ttfamily \label{game__state_8c_a595c651c2e5e4943f5dea72316817a69} 
+int gs\+\_\+is\+\_\+obstacle (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_acc6bfdf74b9b7feead7040129bbbc1f0}\index{game\_state.c@{game\_state.c}!gs\_remove\_snake@{gs\_remove\_snake}}
+\index{gs\_remove\_snake@{gs\_remove\_snake}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_remove\_snake()}{gs\_remove\_snake()}}
+{\footnotesize\ttfamily \label{game__state_8c_acc6bfdf74b9b7feead7040129bbbc1f0} 
+void gs\+\_\+remove\+\_\+snake (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{snake\+\_\+id}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_a7880671364101bab7aee85a0fc301049}\index{game\_state.c@{game\_state.c}!gs\_set\_mode@{gs\_set\_mode}}
+\index{gs\_set\_mode@{gs\_set\_mode}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_set\_mode()}{gs\_set\_mode()}}
+{\footnotesize\ttfamily \label{game__state_8c_a7880671364101bab7aee85a0fc301049} 
+void gs\+\_\+set\+\_\+mode (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{\doxymbox{\hyperlink{ipc__messages_8h_aaf5ef5a17b53e9997c837b07015589de}{Game\+Mode}}}]{mode}{, }\item[{int}]{time\+\_\+limit\+\_\+sec}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_a9cbfbcd2a081cc603d3792bd8d175bc9}\index{game\_state.c@{game\_state.c}!gs\_tick@{gs\_tick}}
+\index{gs\_tick@{gs\_tick}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{gs\_tick()}{gs\_tick()}}
+{\footnotesize\ttfamily \label{game__state_8c_a9cbfbcd2a081cc603d3792bd8d175bc9} 
+void gs\+\_\+tick (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{long long}]{now\+\_\+ms}{}\end{DoxyParamCaption})}
+
+\Hypertarget{game__state_8c_aeea2d1b1b4995d28f89461e4339dc480}\index{game\_state.c@{game\_state.c}!hits\_any\_snake@{hits\_any\_snake}}
+\index{hits\_any\_snake@{hits\_any\_snake}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{hits\_any\_snake()}{hits\_any\_snake()}}
+{\footnotesize\ttfamily \label{game__state_8c_aeea2d1b1b4995d28f89461e4339dc480} 
+int hits\+\_\+any\+\_\+snake (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_aa68a09c04c0f5135651ca806957356c8}\index{game\_state.c@{game\_state.c}!idx\_of@{idx\_of}}
+\index{idx\_of@{idx\_of}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{idx\_of()}{idx\_of()}}
+{\footnotesize\ttfamily \label{game__state_8c_aa68a09c04c0f5135651ca806957356c8} 
+int idx\+\_\+of (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_a4782933787f87245b6e8e4c4fee9e916}\index{game\_state.c@{game\_state.c}!map\_is\_connected\_free@{map\_is\_connected\_free}}
+\index{map\_is\_connected\_free@{map\_is\_connected\_free}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{map\_is\_connected\_free()}{map\_is\_connected\_free()}}
+{\footnotesize\ttfamily \label{game__state_8c_a4782933787f87245b6e8e4c4fee9e916} 
+int map\+\_\+is\+\_\+connected\+\_\+free (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_a40a820bbd603761210d0f7c24d4a56af}\index{game\_state.c@{game\_state.c}!popcount\_u8@{popcount\_u8}}
+\index{popcount\_u8@{popcount\_u8}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{popcount\_u8()}{popcount\_u8()}}
+{\footnotesize\ttfamily \label{game__state_8c_a40a820bbd603761210d0f7c24d4a56af} 
+int popcount\+\_\+u8 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{arr}{, }\item[{int}]{n}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_ab1d38964ac49934934b52ce92ffb46ec}\index{game\_state.c@{game\_state.c}!reachable\_intersection\_all\_snakes@{reachable\_intersection\_all\_snakes}}
+\index{reachable\_intersection\_all\_snakes@{reachable\_intersection\_all\_snakes}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{reachable\_intersection\_all\_snakes()}{reachable\_intersection\_all\_snakes()}}
+{\footnotesize\ttfamily \label{game__state_8c_ab1d38964ac49934934b52ce92ffb46ec} 
+void reachable\+\_\+intersection\+\_\+all\+\_\+snakes (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_a41d3b3235aadd259a1810e208b7bf6cf}\index{game\_state.c@{game\_state.c}!snake\_seg\_capacity@{snake\_seg\_capacity}}
+\index{snake\_seg\_capacity@{snake\_seg\_capacity}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{snake\_seg\_capacity()}{snake\_seg\_capacity()}}
+{\footnotesize\ttfamily \label{game__state_8c_a41d3b3235aadd259a1810e208b7bf6cf} 
+int snake\+\_\+seg\+\_\+capacity (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_snake}{Snake}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{game__state_8c_ac0f3a3b1a2dbeaed58a4f0d4be712000}\index{game\_state.c@{game\_state.c}!will\_hit\_wall\_or\_obstacle@{will\_hit\_wall\_or\_obstacle}}
+\index{will\_hit\_wall\_or\_obstacle@{will\_hit\_wall\_or\_obstacle}!game\_state.c@{game\_state.c}}
+\doxysubsubsection{\texorpdfstring{will\_hit\_wall\_or\_obstacle()}{will\_hit\_wall\_or\_obstacle()}}
+{\footnotesize\ttfamily \label{game__state_8c_ac0f3a3b1a2dbeaed58a4f0d4be712000} 
+int will\+\_\+hit\+\_\+wall\+\_\+or\+\_\+obstacle (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*}}]{gs}{, }\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

@@ -1,0 +1,14 @@
+<map id="shared_code/ipc_messages.h" name="shared_code/ipc_messages.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="142,5,336,31"/>
+<area shape="rect" id="Node000002" href="$client__main_8c.html" title=" " alt="" coords="5,79,139,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,40,102,81,99,76,198,35"/>
+<area shape="rect" id="Node000003" href="$server__main_8c.html" title=" " alt="" coords="104,153,248,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,42,204,80,190,119,181,154,176,151,185,118,199,78,219,45"/>
+<area shape="rect" id="Node000004" href="$game__state_8h.html" title=" " alt="" coords="214,79,392,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="260,40,295,79,289,78,258,45"/>
+<area shape="rect" id="Node000006" href="$ipc__messages_8c.html" title=" " alt="" coords="416,79,610,105"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="300,33,469,77,464,79,299,38"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="271,112,199,155,197,150,265,113"/>
+<area shape="rect" id="Node000005" href="$game__state_8c.html" title=" " alt="" coords="272,153,450,178"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="323,114,354,153,349,151,321,119"/>
+</map>
