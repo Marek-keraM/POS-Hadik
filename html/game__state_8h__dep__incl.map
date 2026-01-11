@@ -1,7 +1,0 @@
-<map id="shared_code/game_state.h" name="shared_code/game_state.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="80,5,258,31"/>
-<area shape="rect" id="Node000002" href="$server__main_8c.html" title=" " alt="" coords="5,79,149,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,40,94,81,91,76,139,41"/>
-<area shape="rect" id="Node000003" href="$game__state_8c.html" title=" " alt="" coords="173,79,352,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="198,38,249,79,244,79,196,43"/>
-</map>
